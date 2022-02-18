@@ -18,5 +18,4 @@ sudoku_problem = from_file()
 if not sudoku_problem.any():
     sudoku_problem = from_input()
 
-print(sudoku_problem)
-Solver(problem=sudoku_problem).get_solution()
+Solver(problem=sudoku_problem).get_final_solution()

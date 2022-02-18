@@ -4,13 +4,18 @@ import constants
 class Solver:
     def __init__(self, problem):
         self.problem = problem
+        print(self.display_problem())
 
     def validate_problem(self):
         if not self.problem.shape == (9, 9):
             raise Exception("Sudoku Problem is not in correct format: expected 9 * 9")
 
+    def get_final_solution(self):
+        if self.get_solution():
+            self.display_problem()
+
     def get_solution(self):
-        # self.validate_problem()
+        self.validate_problem()
         pos = self.get_unsolved_box()
         if not pos:
             print("Find solution!")
@@ -23,6 +28,7 @@ class Solver:
                 if self.get_solution():
                     return True
                 self.problem[pos[0]][pos[1]] = 0
+                self.display_problem()
         return False
 
     def get_unsolved_box(self) -> tuple:
@@ -31,19 +37,19 @@ class Solver:
         Returns:
             tuple: position of unsolved box
         """
-        row_indices, col_indices = np.where(self.problem == 10)
-        if row_indices and col_indices:
+        row_indices, col_indices = np.where(self.problem == 0)
+        if row_indices.any() and col_indices.any():
             return row_indices[0], col_indices[0]
 
     def _is_valid_number(self, pos: tuple, val: int):
         
         # Check if row already has the number
-        for i in range(constants.COLS+1):
+        for i in range(constants.COLS):
             if self.problem[pos[0]][i] == val and pos[1] != i:
                 return False
 
         # Check if column already has the number
-        for i in range(constants.ROWS+1):
+        for i in range(constants.ROWS):
             if self.problem[i][pos[1]] == val and pos[0] != i:
                 return False
 
@@ -56,3 +62,19 @@ class Solver:
                 if self.problem[row][col] == val and (row, col) != pos:
                     return False
         return True
+
+    def display_problem(self):
+        repr = ""
+        for i in range(self.problem.shape[0]):
+            if i!= 0 and i % 3 == 0:
+                    repr += '- - -   ' * 3 + '\n'
+
+            for j in range(self.problem.shape[1]):
+                if j!= 0 and j % 3 == 0:
+                    repr += "| "
+                repr += str(self.problem[i][j])
+                if j == self.problem.shape[0]-1:
+                    repr += '\n'
+                else:
+                    repr += ' '
+        print(repr)
