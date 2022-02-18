@@ -3,6 +3,7 @@ import constants
 
 class Solver:
     def __init__(self, problem):
+        self.header()
         self.problem = problem
         self.display_problem()
 
@@ -69,18 +70,31 @@ class Solver:
     def display_problem(self, flush=False, val: str = ""):
         repr = ""
         if flush == True:
-            up = "\033[A" * 12
+            up = "\033[A" * 14
             repr = f"\r{up}"
+        repr += '  - - - ' * 3 + '\n'
         for i in range(self.problem.shape[0]):
             if i!= 0 and i % 3 == 0:
-                    repr += '- - -   ' * 3 + '\n'
+                    repr += '  - - - ' * 3 + '\n'
 
             for j in range(self.problem.shape[1]):
-                if j!= 0 and j % 3 == 0:
+                if j == 0 or j % 3 == 0:
                     repr += "| "
                 repr += str(self.problem[i][j])
                 if j == self.problem.shape[0]-1:
-                    repr += '\n'
+                    repr += ' |\n'
                 else:
                     repr += ' '
+        repr += '  - - - ' * 3 + '\n'
         print(repr)
+
+    @staticmethod
+    def header():
+        print("""
+░██████╗██╗░░░██╗██████╗░░█████╗░██╗░░██╗██╗░░░██╗
+██╔════╝██║░░░██║██╔══██╗██╔══██╗██║░██╔╝██║░░░██║
+╚█████╗░██║░░░██║██║░░██║██║░░██║█████═╝░██║░░░██║
+░╚═══██╗██║░░░██║██║░░██║██║░░██║██╔═██╗░██║░░░██║
+██████╔╝╚██████╔╝██████╔╝╚█████╔╝██║░╚██╗╚██████╔╝
+╚═════╝░░╚═════╝░╚═════╝░░╚════╝░╚═╝░░╚═╝░╚═════╝░
+""")
