@@ -11,8 +11,10 @@ class Solver:
             raise Exception("Sudoku Problem is not in correct format: expected 9 * 9")
 
     def get_final_solution(self):
+        self.display_problem()
         if self.get_solution():
-            self.display_problem()
+            self.display_problem(flush=True)
+            print("Found Solution!!! 👆🏽")
         else:
             print("Sorry, Didn't find solution")
 
@@ -20,7 +22,6 @@ class Solver:
         self.validate_problem()
         pos = self.get_unsolved_box()
         if not pos:
-            print("Find solution!")
             return True
 
         for num in range(1, constants.ROWS+1):
@@ -30,6 +31,7 @@ class Solver:
                 if self.get_solution():
                     return True
                 self.problem[pos[0]][pos[1]] = 0
+                self.display_problem(flush=True)
         return False
 
     def get_unsolved_box(self) -> tuple:
@@ -64,8 +66,11 @@ class Solver:
                     return False
         return True
 
-    def display_problem(self):
+    def display_problem(self, flush=False, val: str = ""):
         repr = ""
+        if flush == True:
+            up = "\033[A" * 12
+            repr = f"\r{up}"
         for i in range(self.problem.shape[0]):
             if i!= 0 and i % 3 == 0:
                     repr += '- - -   ' * 3 + '\n'
