@@ -1,4 +1,5 @@
 import numpy as np
+import constants
 
 class Solver:
     def __init__(self, problem):
@@ -14,8 +15,7 @@ class Solver:
         if not pos:
             print("Find solution!")
             return True
-        
-            
+
     
     def get_unsolved_box(self) -> tuple:
         """Returns first unsolved box top to bottom, left to right
@@ -26,3 +26,10 @@ class Solver:
         row_indices, col_indices = np.where(self.problem == 10)
         if row_indices and col_indices:
             return row_indices[0], col_indices[0]
+
+    def _is_valid_number(position: tuple, val: int):
+        for i in range(constants.ROWS+1):
+            pass
+        
+        for i in range(constants.COLS+1):
+            pass

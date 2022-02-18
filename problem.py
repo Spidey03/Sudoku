@@ -1,13 +1,10 @@
 import numpy as np
-
+import constants
 from solver import Solver
 
-ROWS = 9
-COLS = 9
-FILE_NAME = "sudoku.txt"
 
 def from_file():
-    with open(FILE_NAME, 'r') as f:
+    with open(constants.FILE_NAME, 'r') as f:
         rows = f.readlines()
         problem = np.array([row.strip().split() for row in rows], int)
     return problem
