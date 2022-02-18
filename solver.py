@@ -17,7 +17,12 @@ class Solver:
         
             
     
-    def get_unsolved_box(self):
+    def get_unsolved_box(self) -> tuple:
+        """Returns first unsolved box top to bottom, left to right
+
+        Returns:
+            tuple: position of unsolved box
+        """
         row_indices, col_indices = np.where(self.problem == 10)
         if row_indices and col_indices:
             return row_indices[0], col_indices[0]
