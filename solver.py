@@ -4,7 +4,7 @@ import constants
 class Solver:
     def __init__(self, problem):
         self.problem = problem
-        print(self.display_problem())
+        self.display_problem()
 
     def validate_problem(self):
         if not self.problem.shape == (9, 9):
@@ -13,6 +13,8 @@ class Solver:
     def get_final_solution(self):
         if self.get_solution():
             self.display_problem()
+        else:
+            print("Sorry, Didn't find solution")
 
     def get_solution(self):
         self.validate_problem()
@@ -28,7 +30,6 @@ class Solver:
                 if self.get_solution():
                     return True
                 self.problem[pos[0]][pos[1]] = 0
-                self.display_problem()
         return False
 
     def get_unsolved_box(self) -> tuple:
