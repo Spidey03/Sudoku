@@ -16,7 +16,15 @@ class Solver:
             print("Find solution!")
             return True
 
-    
+        for num in range(1, constants.ROWS+1):
+            if self._is_valid_number(pos=pos, val=num):
+                self.problem[pos[0]][pos[1]] = num
+
+                if self.get_solution():
+                    return True
+                self.problem[pos[0]][pos[1]] = 0
+        return False
+
     def get_unsolved_box(self) -> tuple:
         """Returns first unsolved box top to bottom, left to right
 
