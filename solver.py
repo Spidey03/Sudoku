@@ -27,9 +27,24 @@ class Solver:
         if row_indices and col_indices:
             return row_indices[0], col_indices[0]
 
-    def _is_valid_number(position: tuple, val: int):
-        for i in range(constants.ROWS+1):
-            pass
+    def _is_valid_number(self, pos: tuple, val: int):
         
+        # Check if row already has the number
         for i in range(constants.COLS+1):
-            pass
+            if self.problem[pos[0]][i] == val and pos[1] != i:
+                return False
+
+        # Check if column already has the number
+        for i in range(constants.ROWS+1):
+            if self.problem[i][pos[1]] == val and pos[0] != i:
+                return False
+
+        # find box
+        box_y = pos[0]//3
+        box_x = pos[1]//3
+
+        for row in range(box_y*3, box_y+3):
+            for col in range(box_x*3, box_x*3+3):
+                if self.problem[row][col] == val and (row, col) != pos:
+                    return False
+        return True
