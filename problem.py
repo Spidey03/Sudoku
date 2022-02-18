@@ -1,5 +1,7 @@
 import numpy as np
 
+from solver import Solver
+
 ROWS = 9
 COLS = 9
 FILE_NAME = "sudoku.txt"
@@ -20,3 +22,4 @@ if not sudoku_problem.any():
     sudoku_problem = from_input()
 
 print(sudoku_problem)
+Solver(problem=sudoku_problem).get_solution()
